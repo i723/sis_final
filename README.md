@@ -2,17 +2,17 @@
 
 ## Path:
 
->> competition_modules
+competition_modules
 
->>>    ├-----object_detection
+> object_detection
     
->>>>    │         ├-----src--------(Put your source code here)
+>> src (Put your source code here)
     
->>>>    │         ├-----srv--------(Design a service used for the task)
+>> srv (Design a service used for the task)
     
->>>>    │         └-----launch-----(put your launch file here)
+>> launch (put your launch file here)
     
->>>    ├-----place_to_box
+> place_to_box
     
 >>>>    │         ├-----src--------(Put your source code here)
     
