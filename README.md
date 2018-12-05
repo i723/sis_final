@@ -51,11 +51,11 @@
 
 tx2 $ source docker_build.sh
 
-*** If docker is already login with other account, please logout first. ***
+***If docker is already login with other account, please logout first.***
 
 tx2 $ docker logout
 
-*** Type your dockerhub's account and password. ***
+***Type your dockerhub's account and password.***
 
 tx2 $ docker login
 
