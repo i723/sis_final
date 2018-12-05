@@ -1,5 +1,9 @@
 # sis_competition_task_template
 
+## About this template
+
+You need to submit by using this template for each task.
+
 ## Path:
 
 > competition_modules
@@ -59,8 +63,8 @@ tx2 $ docker logout
 
 tx2 $ docker login
 
-tx2 $ docker tag - t sis_competition [dockerhub account]/sis_competition
+tx2 $ docker tag - t sis_competition [dockerhub account]/sis_competition:[task_name]
 
-tx2 $ docker push [dockerhub account]/sis_competition
+tx2 $ docker push [dockerhub account]/sis_competition:[task_name]
 
   
