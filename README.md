@@ -2,55 +2,49 @@
 
 ## Path:
 
-competition_modules
+>> competition_modules
 
->> 2
-
->>> 3 
-
->>>> 4
-
-    ├-----object_detection
+>>>    ├-----object_detection
     
-    │         ├-----src--------(Put your source code here)
+>>>>    │         ├-----src--------(Put your source code here)
     
-    │         ├-----srv--------(Design a service used for the task)
+>>>>    │         ├-----srv--------(Design a service used for the task)
     
-    │         └-----launch-----(put your launch file here)
+>>>>    │         └-----launch-----(put your launch file here)
     
-    ├-----place_to_box
+>>>    ├-----place_to_box
     
-    │         ├-----src--------(Put your source code here)
+>>>>    │         ├-----src--------(Put your source code here)
     
-    │         ├-----srv--------(Design a service used for the task)
+>>>>    │         ├-----srv--------(Design a service used for the task)
     
-    │         └-----launch-----(put your launch file here)
+>>>>    │         └-----launch-----(put your launch file here)
     
-    ├-----pose_estimate_and_pick
+>>>    ├-----pose_estimate_and_pick
     
-    │         ├-----src--------(Put your source code here)
+>>>>    │         ├-----src--------(Put your source code here)
     
-    │         ├-----srv--------(Design a service used for the task)
+>>>>    │         ├-----srv--------(Design a service used for the task)
     
-    │         └-----launch-----(put your launch file here)
+>>>>    │         └-----launch-----(put your launch file here)
     
-    └-----robot_navigation
+>>>    └-----robot_navigation
     
-              ├-----src--------(Put your source code here)
+>>>>              ├-----src--------(Put your source code here)
               
-              ├-----srv--------(Design a service used for the task)
+>>>>              ├-----srv--------(Design a service used for the task)
               
-              └-----launch-----(put your launch file here)
+>>>>              └-----launch-----(put your launch file here)
               
-README.md
+>> README.md
 
-Dockerfile            (You don't need to modify this file)
+>> Dockerfile            (You don't need to modify this file)
 
-run_task.sh           (You don't need to modify this file)
+>> run_task.sh           (You don't need to modify this file)
 
-master_task.launch    (You have to determine which node you need to launch and write in this file)
+>> master_task.launch    (You have to determine which node you need to launch and write in this file)
 
-docker_build.sh       (If you want to build docker file, please execute/source this shell)
+>> docker_build.sh       (If you want to build docker file, please execute/source this shell)
 
 
 ## How to build docker image:
