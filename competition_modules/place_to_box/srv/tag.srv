@@ -1,0 +1,5 @@
+#Request data
+int8 tag_id # for target box
+---
+#Response data
+string result # for mission result
