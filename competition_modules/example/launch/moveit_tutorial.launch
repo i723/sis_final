@@ -1,0 +1,3 @@
+<launch>
+<node pkg="example" type="moveit_turtorial.py" name="moveit_turtorial" output="screen"/>
+</launch>
