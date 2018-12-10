@@ -1,0 +1,3 @@
+<launch>
+<node pkg="moveit_example" type="moveit_tutorial.py" name="moveit_tutorial" output="screen"/>
+</launch>
