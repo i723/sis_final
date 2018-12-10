@@ -29,9 +29,8 @@ class moveit_tutorial(object):
 
 
 
-		# First initialize moveit_commander and a rospy node
+		# First initialize moveit_commander
 		moveit_commander.roscpp_initialize(sys.argv)
-		rospy.init_node('move_group_python_interface_tutorial', anonymous=True)
 
 		# Instantiate a RobotCommander object. 
 		# Provides information such as the robot's kinematic model and the robot's current joint states
