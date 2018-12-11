@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<launch>
+  <include file="$(find sis_arm_planning)/launch/apriltags2.launch">
+  </include>
+
+  <include file="$(find sis_arm_planning)/launch/manipulation_tx2.launch">
+  </include>
+
+  <node pkg="place_to_box" type="place.py" name="place_node" output="screen"/>
+</launch>
