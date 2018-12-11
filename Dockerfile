@@ -1,4 +1,4 @@
-From argnctu/sis_base_image:v3
+From argnctu/sis_base_image:v4
 
 
 WORKDIR /root/sis_mini_competition_2018/
