@@ -1,17 +1,20 @@
 #!/usr/bin/env python
 
 import sys
-import rospy
+import rospymoveit_commander
 import moveit_commander
 import moveit_msgs.msg
 from geometry_msgs.msg import Pose
 from math import pi
-from std_msgs.msg import String
+from std_msgs.msg import String, Float64
 from moveit_commander.conversions import pose_to_list
 import ik_4dof
 
 class moveit_tutorial(object):
 	def __init__(self):
+		# initial publisher for gripper command topic which is used for gripper control
+		self.pub_gripper = rospy.Publisher("/gripper_joint/command",Float64,queue_size=1)
+
 		check = True
 		# you need to check if moveit server is open or not
 		while(check):
@@ -20,13 +23,10 @@ class moveit_tutorial(object):
 				# Instantiate a MoveGroupCommander object. This object is an interface to a planning group 
 				# In our case, we have "arm" and "gripper" group
 
-				move_group = moveit_commander.MoveGroupCommander("arm")
+				self.move_group = moveit_commander.MoveGroupCommander("arm")
 			except:
 				print "moveit server isn't open yet"
 				check = True
-
-
-
 
 
 		# First initialize moveit_commander
@@ -34,55 +34,28 @@ class moveit_tutorial(object):
 
 		# Instantiate a RobotCommander object. 
 		# Provides information such as the robot's kinematic model and the robot's current joint states
-		robot = moveit_commander.RobotCommander()
+		self.robot = moveit_commander.RobotCommander()
 
-		# Instantiate a PlanningSceneInterface object. 
-		# This provides a remote interface for getting, setting, 
-		# and updating the robot's internal understanding of the surrounding world
-		scene = moveit_commander.PlanningSceneInterface()
-
-		# Create a DisplayTrajectory ROS publisher which is used to display trajectories in Rviz:
-		display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path',
-				                                moveit_msgs.msg.DisplayTrajectory,
-				                                queue_size=20)
 
 		# We can get the name of the reference frame for this robot:
-		planning_frame = move_group.get_planning_frame()
+		planning_frame = self.move_group.get_planning_frame()
 		print "============ Planning frame: %s" % planning_frame
 
 		# We can also print the name of the end-effector link for this group:
-		eef_link = move_group.get_end_effector_link()
+		eef_link = self.move_group.get_end_effector_link()
 		print "============ End effector link: %s" % eef_link
 
 		# We can get a list of all the groups in the robot:
-		group_names = robot.get_group_names()
-		print "============ Available Planning Groups:", robot.get_group_names()
+		group_names = self.robot.get_group_names()
+		print "============ Available Planning Groups:", group_names
 
 		# Sometimes for debugging it is useful to print the entire state of the
 		# robot:
-		print "============ Printing robot state", robot.get_current_state()
+		print "============ Printing robot state", self.robot.get_current_state()
 		print ""
-
-
-		############################ Method : Joint values (Go home!)############################
-
-
-		# We can get the joint values from the group and adjust some of the values:
-
-		# Go home!!!
-		joint_goal = move_group.get_current_joint_values()
-		joint_goal[0] = 0   		# arm_shoulder_pan_joint
-		joint_goal[1] = -pi*5/13   	# arm_shoulder_lift_joint
-		joint_goal[2] = pi*3/4   	# arm_elbow_flex_joint
-		joint_goal[3] = pi/3   		# arm_wrist_flex_joint
-		joint_goal[4] = 0   		# gripper_joint
-
-		# The go command can be called with joint values, poses, or without any
-		# parameters if you have already set the pose or joint target for the group
-		move_group.go(joint_goal, wait=True)
-
-		# Calling ``stop()`` ensures that there is no residual movement
-		move_group.stop()
+		
+		### Go home
+		self.home() 
 
 		############################ Method : Using IK to calculate joint value ############################
 
@@ -105,6 +78,48 @@ class moveit_tutorial(object):
 				rospy.loginfo(str(joint) + " isn't a valid configuration.")
 
 		# Reference: https://ros-planning.github.io/moveit_tutorials/doc/move_group_python_interface/move_group_python_interface_tutorial.html
+
+		### open gripper
+
+                rospy.sleep(2)
+		grip_data = Float64()
+		grip_data.data = 2.0 
+		self.pub_gripper.publish(grip_data)
+
+		### close gripper
+
+                rospy.sleep(2)
+		grip_data = Float64()
+		grip_data.data = 0.5
+		self.pub_gripper.publish(grip_data)
+                rospy.sleep(2)
+
+		### Go home
+		self.home() 
+
+
+	def home(self):
+
+		############################ Method : Joint values (Go home!)############################
+
+
+		# We can get the joint values from the group and adjust some of the values:
+
+		# Go home!!!
+		joint_goal = self.move_group.get_current_joint_values()
+		joint_goal[0] = 0   		# arm_shoulder_pan_joint
+		joint_goal[1] = -pi*5/13   	# arm_shoulder_lift_joint
+		joint_goal[2] = pi*3/4   	# arm_elbow_flex_joint
+		joint_goal[3] = pi/3   		# arm_wrist_flex_joint
+		joint_goal[4] = 0   		# gripper_joint
+
+		# The go command can be called with joint values, poses, or without any
+		# parameters if you have already set the pose or joint target for the group
+		self.move_group.go(joint_goal, wait=True)
+
+		# Calling ``stop()`` ensures that there is no residual movement
+		self.move_group.stop()
+		
 	def onShutdown(self):
 		rospy.loginfo("Shutdown.")
 
