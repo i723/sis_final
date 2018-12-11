@@ -63,7 +63,7 @@ tx2 $ docker logout
 
 tx2 $ docker login
 
-tx2 $ docker tag - t sis_competition [dockerhub account]/sis_competition:[task_name]
+tx2 $ docker tag sis_competition [dockerhub account]/sis_competition:[task_name]
 
 tx2 $ docker push [dockerhub account]/sis_competition:[task_name]
 
