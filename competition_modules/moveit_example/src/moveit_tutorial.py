@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import sys
-import rospymoveit_commander
+import rospy
 import moveit_commander
 import moveit_msgs.msg
 from geometry_msgs.msg import Pose
@@ -73,20 +73,20 @@ class moveit_tutorial(object):
 			# determine gripper state
 			joint.append(0)
 			try:
-				move_group.go(joint, wait=True)
+				self.move_group.go(joint, wait=True)
 			except:
 				rospy.loginfo(str(joint) + " isn't a valid configuration.")
 
 		# Reference: https://ros-planning.github.io/moveit_tutorials/doc/move_group_python_interface/move_group_python_interface_tutorial.html
 
-		### open gripper
+		### close gripper
 
                 rospy.sleep(2)
 		grip_data = Float64()
 		grip_data.data = 2.0 
 		self.pub_gripper.publish(grip_data)
 
-		### close gripper
+		### open gripper
 
                 rospy.sleep(2)
 		grip_data = Float64()
