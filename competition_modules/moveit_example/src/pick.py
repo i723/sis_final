@@ -15,7 +15,7 @@ class pick_task(object):
 		# initial publisher for gripper command topic which is used for gripper control
 		self.pub_gripper = rospy.Publisher("/gripper_joint/command",Float64,queue_size=1)
 		# initial subscriber for pose information
-		self.sub_pos = rospy.Subscriber("/", self.pick,queue_size = 1)
+		#self.sub_pos = rospy.Subscriber("/", self.pick,queue_size = 1)
 		check = True
 		# you need to check if moveit server is open or not
 		while(check):
@@ -84,6 +84,8 @@ class pick_task(object):
 		grip_data = Float64()
 		grip_data.data = 0.9 
 		self.pub_gripper.publish(grip_data)
+
+
 	def home(self):
 
 		############################ Method : Joint values (Go home!)############################
