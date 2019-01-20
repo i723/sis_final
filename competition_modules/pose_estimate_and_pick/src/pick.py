@@ -14,8 +14,7 @@ class pick_task(object):
 	def __init__(self):
 		# initial publisher for gripper command topic which is used for gripper control
 		self.pub_gripper = rospy.Publisher("/gripper_joint/command",Float64,queue_size=1)
-		# initial subscriber for pose information
-		#self.sub_pos = rospy.Subscriber("/", self.pick,queue_size = 1)
+		
 		check = True
 		# you need to check if moveit server is open or not
 		while(check):
@@ -29,7 +28,8 @@ class pick_task(object):
 				print "moveit server isn't open yet"
 				check = True
 
-
+		# initial subscriber for pose information
+		self.sub_pos = rospy.Subscriber("/pick_position", Pose,self.pick,queue_size = 1)
 		# First initialize moveit_commander
 		moveit_commander.roscpp_initialize(sys.argv)
 
@@ -62,9 +62,9 @@ class pick_task(object):
 
 		
 		pose_goal = Pose()
-		pose_goal.position.x = 0.1
-		pose_goal.position.y = 0.02
-		pose_goal.position.z = 0
+		pose_goal.position.x = sub_pos.position.x
+		pose_goal.position.y = sub_pos.position.y
+		pose_goal.position.z = sub_pos.position.z
 		# ik_4dof.ik_solver(x, y, z, degree)
 		joint_value = ik_4dof.ik_solver(pose_goal.position.x, pose_goal.position.y, pose_goal.position.z, -90)
 
@@ -85,6 +85,8 @@ class pick_task(object):
 		grip_data.data = 0.9 
 		self.pub_gripper.publish(grip_data)
 
+		self.home()
+
 
 	def home(self):
 
@@ -99,7 +101,7 @@ class pick_task(object):
 		joint_goal[1] = -pi*5/13   	# arm_shoulder_lift_joint
 		joint_goal[2] = pi*3/4   	# arm_elbow_flex_joint
 		joint_goal[3] = pi/3   		# arm_wrist_flex_joint
-		joint_goal[4] = 0   		# gripper_joint
+		#joint_goal[4] = 0   		# gripper_joint
 
 		# The go command can be called with joint values, poses, or without any
 		# parameters if you have already set the pose or joint target for the group

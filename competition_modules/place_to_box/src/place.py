@@ -46,9 +46,9 @@ class place(object):
 
 		##go to specefic point
 		pose_goal = Pose()
-                pose_goal.position.x = 0.141
-                pose_goal.position.y = 0.020
-                pose_goal.position.z = 0.042
+                pose_goal.position.x = 0.16
+                pose_goal.position.y = 0.000
+                pose_goal.position.z = 0.05
                 # ik_4dof.ik_solver(x, y, z, degree)
                 joint_value = ik_4dof.ik_solver(pose_goal.position.x, pose_goal.position.y, pose_goal.position.z, -90)
 
@@ -70,9 +70,9 @@ class place(object):
 
 		##go to another point 
 		pose_goal = Pose()
-                pose_goal.position.x = 0.131
-                pose_goal.position.y = 0.030
-                pose_goal.position.z = 0.06
+                pose_goal.position.x = 0.16
+                pose_goal.position.y = 0.0
+                pose_goal.position.z = 0.02
                 # ik_4dof.ik_solver(x, y, z, degree)
                 joint_value = ik_4dof.ik_solver(pose_goal.position.x, pose_goal.position.y, pose_goal.position.z, -90)
 

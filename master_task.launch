@@ -1,5 +1,5 @@
 <launch>
 <include file="$(find sis_arm_planning)/launch/apriltags2.launch"></include>
 <include file="$(find sis_arm_planning)/launch/manipulation_tx2.launch"></include>
-<include file="$(find moveit_example)/launch/moveit_tutorial.launch"></include>
+<include file="$(find place_to_box)/launch/place_to_box.launch"></include>
 </launch>

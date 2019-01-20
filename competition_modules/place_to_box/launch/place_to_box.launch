@@ -1,0 +1,3 @@
+<launch>
+<node pkg="place_to_box" type="place.py" name="place_task" output="screen"/>
+</launch>
